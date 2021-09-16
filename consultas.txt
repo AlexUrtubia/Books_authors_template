@@ -1,0 +1,61 @@
+Consulta: crea 5 libros con los siguientes nombres: C Sharp, Java, Python, PHP, Ruby
+>>> Libro.objects.create(titulo="C Sharp", descripcion="Descripcion del libro1")
+>>> Libro.objects.create(titulo="Java", descripcion="Descripcion del libro2")
+>>> Libro.objects.create(titulo="Python", descripcion="Descripcion del libro3")
+>>> Libro.objects.create(titulo="PHP", descripcion="Descripcion del libro4")
+>>> Libro.objects.create(titulo="Ruby", descripcion="Descripcion del libro5")
+
+Consulta: Crea 5 autores diferentes: Jane Austen, Emily Dickinson, Fyodor Dostoevksy, William Shakespeare, Lau Tzu
+>>> Publicador.objects.create(nombre="Jane Austen")
+>>> Publicador.objects.create(nombre="Emily Dickinson")
+>>> Publicador.objects.create(nombre="Fyodor Dostoevksy")
+>>> Publicador.objects.create(nombre="William Shakespeare")
+>>> Publicador.objects.create(nombre="Lau Tzu")
+
+Consulta: cambie el nombre del libro de C Sharp a C #
+>>> libro1 = Libro.objects.get(id=1) 
+>>> libro1.titulo=("C #")  
+>>> libro1.save()
+
+Consulta: cambie el nombre del cuarto autor a Bill
+>>> autor1 = Publicador.objects.get(id=1)
+>>> autor1.nombre=("Bill")
+>>> autor1.save()
+
+Consulta: Asigna el primer autor a los primeros 2 libros.
+>>> libro1 = Libro.objects.get(id=1)
+>>> libro2 = Libro.objects.get(id=2)
+>>> autor1 = Publicador.objects.get(id=1) 
+>>> autor1.libros.add(libro1,libro2)
+
+Consulta: Asigne el segundo autor a los primeros 3 libros.
+>>> autor2 = Publicador.objects.get(id=2)
+>>> libro3 = Libro.objects.get(id=3) 
+>>> autor2.libros.add(libro1,libro2,libro3)
+
+Consulta: Asigna el tercer autor a los primeros 4 libros.
+>>> autor3 = Publicador.objects.get(id=3)
+>>> libro4 = Libro.objects.get(id=4)
+>>> autor3.libros.add(libro1,libro2,libro3,libro4)
+
+Consulta: Asigne el cuarto autor a los primeros 5 libros (o en otras palabras, todos los libros)
+>>> autor4 = Publicador.objects.get(id=4)
+>>> libro5 = Libro.objects.get(id=5)
+>>> autor4.libros.add(libro1,libro2,libro3,libro4,libro5) 
+
+Consulta: recupera a todos los autores del tercer libro
+>>> libro3.publicador.all()
+
+Consulta: eliminar al primer autor del tercer libro
+>>> autor1_li3 = libro3.publicador.first()
+>>> libro3.publicador.remove(autor1_li3)
+
+Consulta: Agregue el quinto autor como uno de los autores del segundo libro.
+>>> autor5 = Publicador.objects.get(id=5)
+>>> libro2.publicador.add(autor5) 
+
+Consulta: Encuentra todos los libros de los que el tercer autor es parte
+>>> autor3.libros.all()
+
+Consulta: Encuentra todos los autores que contribuyeron al quinto libro.
+>>> libro5.publicador.all()
